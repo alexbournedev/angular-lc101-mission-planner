@@ -6,16 +6,29 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./crew.component.css"],
 })
 export class CrewComponent implements OnInit {
+  memberBeingEdited: object = null;
+  crewmate: boolean = false;
+
   crew: object[] = [
     { name: "Eileen Collins", firstMission: false },
     { name: "Mae Jemison", firstMission: false },
     { name: "Ellen Ochoa", firstMission: true },
   ];
 
-  memberBeingEdited: object = null;
+  constructor() {}
+
+  ngOnInit() {}
 
   add(memberName: string, isFirst: boolean) {
-    this.crew.push({ name: memberName, firstMission: isFirst });
+    for (let i = 0; i < this.crew.length; i++) {
+      if (this.crew[i]["name"] === memberName) {
+        this.crewmate = true;
+      }
+    }
+    if (this.crewmate === false) {
+      this.crew.push({ name: memberName, firstMission: isFirst });
+    }
+    this.crewmate = false;
   }
 
   remove(member: object) {
@@ -31,8 +44,4 @@ export class CrewComponent implements OnInit {
     member["name"] = name;
     this.memberBeingEdited = null;
   }
-
-  constructor() {}
-
-  ngOnInit() {}
 }
