@@ -58,10 +58,11 @@ export class CrewComponent implements OnInit {
     } else {
       this.inCrew = false;
     }
-    if (this.crew.length < 3 && this.inCrew === false) {
+    if (this.inCrew) {
+      let index = this.crew.indexOf(crewmate);
+      this.crew.splice(index, 1);
+    } else if (!this.inCrew && this.crew.length < 3) {
       this.crew.push(crewmate);
-    } else {
-      return false;
     }
   }
 }
